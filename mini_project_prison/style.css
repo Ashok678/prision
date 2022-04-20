@@ -1,0 +1,59 @@
+*{
+    margin: 0px;
+    padding: 0px;
+
+}
+#color{
+    background-color: rgb(121, 121, 121);
+}
+#font{
+    font-size: 30px;
+    color:rgb(3, 2, 3);
+    font-weight: 700;
+    padding: 20px;
+}
+#image-background{
+    border: 10px solid white;
+}
+#para{
+    background-color: aquamarine;
+    border: sandybrown;
+    border: 10px solid white ;
+}
+#card{
+    border: 10px solid white;
+}
+#cfont{
+    font-weight: bold;
+}
+#form{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    padding: 10px;
+    background-color: blueviolet;
+}
+#footer{
+    height: 100px;
+    padding: 35px;
+}
+.contact{
+    background-color: rgb(80, 199, 207);
+    padding: 20px;
+}
+.fcolor{
+    font-weight: bold;
+}
+.rowe{
+    border: 2px solid rgb(128, 128, 240);
+    margin-bottom: 20px;
+    background-color: burlywood;
+}
+form{
+    padding: 20px;
+    background-color: burlywood;
+}
+#xyz{
+    width: 500px;
+    padding: 20px;
+}

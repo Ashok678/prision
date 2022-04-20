@@ -1,0 +1,415 @@
+(function ($) {
+
+    "use strict";
+
+    //Update Header Style and Scroll to Top
+    function headerStyle() {
+        if ($('.header-section').length) {
+            var windowpos = $(window).scrollTop();
+            var siteHeader = $('.header-section');
+            var scrollLink = $('.scroll-top');
+            if (windowpos >= 110) {
+                siteHeader.addClass('fixed-header');
+                scrollLink.addClass('open');
+            } else {
+                siteHeader.removeClass('fixed-header');
+                scrollLink.removeClass('open');
+            }
+        }
+    }
+
+    headerStyle();
+
+
+    //Submenu Dropdown Toggle
+    if ($('.header-section li.dropdown ul').length) {
+        $('.header-section .navigation li.dropdown').append('<div class="dropdown-btn"><span class="fas fa-angle-down"></span></div>');
+
+    }
+
+    //Mobile Nav Hide Show
+    if ($('.mobile-menu').length) {
+
+        //$('.mobile-menu .menu-box').mCustomScrollbar();
+
+        var mobileMenuContent = $('.header-section .menu-area .main-menu').html();
+        $('.mobile-menu .menu-box .menu-outer').append(mobileMenuContent);
+        $('.sticky-header .main-menu').append(mobileMenuContent);
+
+        //Dropdown Button
+        $('.mobile-menu li.dropdown a').on('click', function () {
+            $(this).toggleClass('open');
+            $(this).next('ul').slideToggle(500);
+        });
+        //Dropdown Button
+        //$('.mobile-menu li.dropdown .dropdown-btn').on('click', function () {
+        //    $(this).prev('.megamenu').slideToggle(900);
+        //});
+        //Menu Toggle Btn
+        $('.mobile-nav-toggler').on('click', function () {
+            $('body').addClass('mobile-menu-visible');
+        });
+
+        //Menu Toggle Btn
+        $('.mobile-menu .menu-backdrop,.mobile-menu .close-btn').on('click', function () {
+            $('body').removeClass('mobile-menu-visible');
+        });
+    }
+
+
+    if ($('.scroll-to-target').length) {
+        $(".scroll-to-target").on('click', function () {
+            var target = $(this).attr('data-target');
+            $('html, body').animate({
+                scrollTop: $(target).offset().top
+            }, 1000);
+
+        });
+    }
+
+    (function () {
+        var $gallery1 = new SimpleLightbox('.gallery-slider a', {});
+
+        //Photo gallery page
+        //var $gallery2 = new SimpleLightbox('.photo-gallery a', {});
+    })();
+
+    if ($('.banner-carousel').length) {
+        $('.banner-carousel').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn',
+            active: true,
+            smartSpeed: 1000,
+            autoplay: 6000,
+            navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                800: {
+                    items: 1
+                },
+                1024: {
+                    items: 1
+                }
+            }
+        });
+    }
+
+    if ($('.latest-updates-carousel').length) {
+        $('.latest-updates-carousel').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            smartSpeed: 1000,
+            autoplay: 500,
+            navText: ['<span class="fas fa-arrow-left"></span>', '<span class="fas fa-arrow-right"></span>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                480: {
+                    items: 1
+                },
+                600: {
+                    items: 1
+                },
+                800: {
+                    items: 1
+                },
+                1024: {
+                    items: 1
+                }
+            }
+        });
+    }
+
+    if ($('.gallery-slider').length) {
+        $('.gallery-slider').owlCarousel({
+            loop: true,
+            margin: 0,
+            nav: true,
+            smartSpeed: 3000,
+            autoplay: true,
+            navText: ['<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                480: {
+                    items: 2
+                },
+                600: {
+                    items: 3
+                },
+                800: {
+                    items: 4
+                },
+                1200: {
+                    items: 4
+                }
+
+            }
+        });
+    }
+
+    $(window).on('scroll', function () {
+        headerStyle();
+    });
+
+})(window.jQuery);
+
+/*--------------------------------- Set div height same ---------------------------------*/
+
+$(document).ready(function () {
+    var highestBox = 0;
+
+    $('.team-section .lower-content', this).each(function () {
+
+        if ($(this).height() > highestBox) {
+            highestBox = $(this).height();
+        }
+
+    });
+
+    $('.team-section .lower-content', this).height(highestBox);
+
+
+    var highestBox2 = 0;
+
+    $('.eprison-section .inner', this).each(function () {
+
+        if ($(this).height() > highestBox2) {
+            highestBox2 = $(this).height();
+        }
+
+    });
+
+    $('.eprison-section .inner', this).height(highestBox2);
+
+    var highestBox3 = 0;
+
+    $('.cmd-dg-section .lower-content', this).each(function () {
+
+        if ($(this).height() > highestBox3) {
+            highestBox3 = $(this).height();
+        }
+
+    });
+
+    $('.cmd-dg-section .lower-content', this).height(highestBox3);
+});
+
+
+/*--------------------------------- Photo Gallery ---------------------------------*/
+
+$(window).load(function () { // makes sure the whole site is loaded
+    $('#status').fadeOut(); // will first fade out the loading animation
+    $('#preloader').delay(50).fadeOut(100); // will fade out the white DIV that covers the website.
+    $('body').delay(50).css({ 'overflow': 'visible' });
+})
+
+function SwitchToMalayalam() {
+    var currentUrl = window.location.pathname;
+    window.location.href = 'malayalam' + currentUrl;
+}
+
+/*--------------------------------- Slide image onclick open in new tab ---------------------------------*/
+
+$(".slide-section .owl-carousel .slide-item").on("click", function (e) {
+
+    var bg_url = $(this).find('.image-layer').css('background-image');
+
+    bg_url = /^url\((['"]?)(.*)\1\)$/.exec(bg_url);
+    bg_url = bg_url ? bg_url[2] : ""; // If matched, retrieve url, otherwise ""
+
+    var win = window.open(bg_url, '_blank');
+    if (win) {
+        //Browser has allowed it to be opened
+        win.focus();
+    } else {
+        //Browser has blocked it
+        alert('Please allow popups for this website');
+    }
+});
+
+
+/*--------------------------------- All Photo gallery popup ---------------------------------*/
+
+$(document).ready(function(){
+	$("area[rel^='prettyPhoto']").prettyPhoto();
+
+	$(".gallery-container:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: false});
+	$(".gallery-container:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+});
+
+/*--------------------------------- Find an Institution ---------------------------------*/
+
+$(document).ready(function () {
+            var districtJsonList = {
+                "districtTable":
+                    [
+                            { "districtID": "1", "district": "Thiruvananthapuram" },
+                            { "districtID": "2", "district": "Kollam" },
+                            { "districtID": "3", "district": "Pathananthitta" },
+                            { "districtID": "4", "district": "Alappuzha" },
+                            { "districtID": "5", "district": "Kottayam" },
+                            { "districtID": "6", "district": "Iduki" },
+                            { "districtID": "7", "district": "Ernakulam" },
+                            { "districtID": "8", "district": "Thrissur" },
+                            { "districtID": "9", "district": "Palakkad" },
+                            { "districtID": "10", "district": "Malappuram" },
+                            { "districtID": "11", "district": "Kozhikode" },
+                            { "districtID": "12", "district": "Wayanad" },
+                            { "districtID": "13", "district": "Kannur" },
+                            { "districtID": "14", "district": "Kasaragod" },
+                    ]
+            };
+            var institutionJsonList = {
+                "Thiruvananthapuram":
+                    [
+                        { "institution": "DIG(SZ) Office & SICA, Thiruvananthapuram", "pageUrl": "dig-office.html" },
+                        { "institution": "Central Prison & Correctional Home,Thiruvananthapuram", "pageUrl": "central-prison-poojappura.html" },
+                        { "institution": "Open Prison & Correctional Home, Nettukalthery", "pageUrl": "open-prison-nettukaltheri.html" },
+                        { "institution": "District Jail, Thiruvananthapuram", "pageUrl": "district-jail-thiruvananthapuram.html" },
+                        { "institution": "Women Prison & Correctional Home, Thiruvananathapuram", "pageUrl": "women-prison-thiruvananthapuram.html" },
+                        { "institution": "Women Open Prison & Correctional Home, Thiruvananathapuram", "pageUrl": "womens-open-prison-poojappura.html" },
+                        { "institution": "Special Sub Jail, Thiruvananthapuram", "pageUrl": "special-sub-jail-thiruvananthapuram.html" },
+                        { "institution": "Special Sub Jail, Neyyattinkara", "pageUrl": "special-sub-jail-neyyattinkara.html" },
+                        { "institution": "Sub Jail, Attingal", "pageUrl": "sub-jail-attingal.html" },
+                    ],
+                "Kollam":
+                    [
+                        { "institution": "District Jail, Kollam", "pageUrl": "district-jail-kollam.html" },
+                        { "institution": "Special Sub Jail, Kottarakkara", "pageUrl": "special-sub-jail-kottarakkara.html" },
+                    ],
+                "Pathananthitta":
+                    [
+                        { "institution": "District Jail, Pathanamthitta", "pageUrl": "district-jail-pathanamthitta.html" },
+                    ],
+                "Alappuzha":
+                    [
+                        { "institution": "District Jail, Alappuzha", "pageUrl": "district-jail-alapuzha.html" },
+                        { "institution": "Special Sub Jail, Mavelikkara", "pageUrl": "special-sub-jail-mavelikkara.html" },
+                    ],
+                "Kottayam":
+                    [
+                        { "institution": "District Jail, Kottayam", "pageUrl": "district-jail-kottayam.html" },
+                        { "institution": "Special Sub Jail, Ponkunnam", "pageUrl": "special-sub-jail-ponkunnam.html" },
+                        { "institution": "Sub Jail, Pala", "pageUrl": "sub-jail-meenachil.html" },
+                    ],
+                "Iduki":
+                    [
+                        { "institution": "District Jail, Iduki (Muttom)", "pageUrl": "district-jail-idukki.html" },
+                        { "institution": "Special Sub Jail, Devikulam", "pageUrl": "special-sub-jail-devikulam.html" },
+                        { "institution": "Sub Jail, Peerumed", "pageUrl": "sub-jail-peerumade.html" },
+                    ],
+                "Ernakulam":
+                    [
+                        { "institution": "District Jail, Ernakulam", "pageUrl": "district-jail-ernakulam.html" },
+                        { "institution": "Special Sub Jail, Moovattupuzha", "pageUrl": "special-sub-jail-muvattupuzha.html" },
+                        { "institution": "Borstal School, Thikkakkara", "pageUrl": "borstal-school.html" },
+                        { "institution": "Sub Jail, Ernakulam", "pageUrl": "sub-jail-ernakulam.html" },
+                        { "institution": "Sub Jail, Aluva", "pageUrl": "sub-jail-aluva.html" },
+                        { "institution": "Sub Jail, Mattancherry", "pageUrl": "sub-jail-mattancherry.html" },
+                    ],
+                "Thrissur":
+                    [
+                        { "institution": "DIG(CZ) Office, Viyyur", "pageUrl": "dig-office.html" },
+                        { "institution": "Central Prison & Correctional Home, Viyyur", "pageUrl": "central-prison-viyyur.html" },
+                        { "institution": "High Security Prison, Viyyur", "pageUrl": "high-security-prison-viyyur.html" },
+                        { "institution": "District Jail, Viyyur", "pageUrl": "district-jail-thrissur.html" },
+                        { "institution": "SICA Extension centre, Viyyur", "pageUrl": "sica.html" },
+                        { "institution": "Women Prison & Correctional Home, Viyyur", "pageUrl": "women-prison-viyyur.html" },
+                        { "institution": "Special Sub Jail, Irinjalakkuda", "pageUrl": "special-sub-jail-irinjalakkuda.html" },
+                        { "institution": "Sub Jail, Viyyur", "pageUrl": "sub-jail-viyyur.html" },
+                        { "institution": "Sub Jail, Chavakkad", "pageUrl": "sub-jail-chavakkad.html" },
+                    ],
+                "Palakkad":
+                    [
+                        { "institution": "District Jail, Palakkad (Malambuzha)", "pageUrl": "district-jail-palakkad.html" },
+                        { "institution": "Special Sub Jail, Chittur", "pageUrl": "special-sub-jail-chittoor.html" },
+                        { "institution": "Sub Jail, Alathur", "pageUrl": "sub-jail-alathur.html" },
+                        { "institution": "Sub Jail, Ottapalam", "pageUrl": "sub-jail-ottappalam.html" },
+                    ],
+                "Malappuram":
+                    [
+						{ "institution": "Central Prison & Correctional Home, Tavanur", "pageUrl": "central-prison-thavanoor.html" },
+                        { "institution": "Special Sub Jail, Manjeri", "pageUrl": "special-sub-jail-manjeri.html" },
+                        { "institution": "Sub Jail, Perinthalmanna", "pageUrl": "sub-jail-perinthalmanna.html" },
+                        { "institution": "Sub Jail, Tirur", "pageUrl": "sub-jail-tirur.html" },
+                        { "institution": "Sub Jail, Ponnani", "pageUrl": "sub-jail-ponnani.html" },
+                    ],
+                "Kozhikode":
+                    [
+                        { "institution": "DIG (NZ) Office, Kozhikode", "pageUrl": "dig-office.html" },
+                        { "institution": "District Jail, Kozhikode", "pageUrl": "district-jail-kozhikkode.html" },
+                        { "institution": "Special Sub Jail, Kozhikode", "pageUrl": "special-sub-jail-kozhikkode.html" },
+                        { "institution": "Sub Jail, Koilandy", "pageUrl": "sub-jail-koyilandy.html" },
+                        { "institution": "Sub Jail, Vatakara", "pageUrl": "sub-jail-vadakara.html" },
+                    ],
+                "Wayanad":
+                    [
+                        { "institution": "District Jail, Wayanad (Mananthavadi)", "pageUrl": "district-jail-wayanad.html" },
+                        { "institution": "Special Sub Jail, Vythiri", "pageUrl": "special-sub-jail-vythiri.html" },
+                    ],
+                "Kannur":
+                    [
+                        { "institution": "Central Prison & Correctional Home, Kannur", "pageUrl": "central-prison-kannur.html" },
+                        { "institution": "District Jail, Kannur", "pageUrl": "district-jail-kannur.html" },
+                        { "institution": "Women Prison & Correctional Home, Kannur", "pageUrl": "women-prison-kannur.html" },
+                        { "institution": "SICA Extension Centre, Kannur", "pageUrl": "sica.html" },
+                        { "institution": "Special Sub Jail, Thalaserry", "pageUrl": "special-sub-jail-thalaserry.html" },
+                        { "institution": "Special Sub Jail, Kannur", "pageUrl": "special-sub-jail-kannur.html" },
+                        { "institution": "Sub Jail, Kannur", "pageUrl": "sub-jail-kannur.html" },
+                    ],
+                "Kasaragod":
+                   [
+                       { "institution": "Open Prison & Correctional Home, Cheemeni", "pageUrl": "open-prison-cheemeni.html" },
+                       { "institution": "District Jail, Hosdurg, Kasargod", "pageUrl": "district-jail-kasaragod.html" },
+                       { "institution": "Special Sub Jail, Kasaragod", "pageUrl": "special-sub-jail-kasaragod.html" },
+                   ],
+            };
+
+            var DistrictListItems = "";
+            DistrictListItems += "<option value='0'>Select district</option>";
+
+            for (var i = 0; i < districtJsonList.districtTable.length; i++) {
+                DistrictListItems += "<option value='" + districtJsonList.districtTable[i].districtID + "'>" + districtJsonList.districtTable[i].district + "</option>";
+            }
+
+            $("#ddlDistrict").html(DistrictListItems);
+
+            var populateInstitutionDropdown = function (district) {
+                var listItems = "";
+                listItems += "<option value=''>Select institution</option>";
+
+                if (institutionJsonList[district] !== undefined) {
+                    for (var i = 0; i < institutionJsonList[district].length; i++) {
+                        listItems += "<option value='" + institutionJsonList[district][i].pageUrl + "'>" + institutionJsonList[district][i].institution + "</option>";
+                    }
+                }
+
+                $("select#ddlInstitution").html(listItems);
+            }
+
+            $("select#ddlDistrict").on('change', function () {
+                var district = $('#ddlDistrict option:selected').text();
+                populateInstitutionDropdown(district);
+            });
+
+            $("select#ddlInstitution").on('change', function () {
+                var url = $('#ddlInstitution option:selected').val();
+
+                if (url !== '') {
+                    window.location.href = url;
+                }
+            });
+        });
+
